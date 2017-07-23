@@ -1,9 +1,13 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import {StyleRoot} from 'radium';
+import './index.css';
 
-import { Hello } from "./components/Hello";
+import App from "./components/App";
 
 ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React" />,
+    <StyleRoot>
+        <App compiler="TypeScript" framework="React" />
+    </StyleRoot>,
     document.getElementById("app")
 );
