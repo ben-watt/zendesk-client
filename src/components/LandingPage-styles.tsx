@@ -31,9 +31,6 @@ const css = {
             opacity: 0.5,
             color: 'black',
         },
-        ':click': {
-            
-        },
         '@media (min-width: 600px)': {
             gridColumn: '8 / 11',
         }
