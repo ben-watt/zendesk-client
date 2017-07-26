@@ -9,13 +9,12 @@ const css = {
     },
     enterBtn: {
         gridColumn: '2 / 12',
-        gridRows: '3',
         height: '50px',
         backgroundColor: 'transparent',
         color: 'white',
         borderRadius: '1px',
         border:'1px solid white',
-        transition: 'background-color 2s, color 1s, box-shadow 2s',
+        transition: 'background-color 2s, color 1s, box-shadow 2s, opacity 1s',
         fontSize: '15px',
         marginTop: '80px',
         ':hover': {
@@ -26,9 +25,15 @@ const css = {
         },
         ':focus': {
             //outline:`1px solid ${config.green}`,
-            boxShadow: '0 0 1000px 1000pt white',
+            boxShadow: '0 0 100px white',
             backgroundColor: 'white',
             opacity: 0.5,
+            color: 'black',
+        },
+        ':active':{
+            boxShadow: '0 0 1000px 1000pt white',
+            backgroundColor: 'white',
+            opacity: 1,
             color: 'black',
         },
         '@media (min-width: 600px)': {

@@ -1,39 +1,43 @@
 import * as React from "react";
 import * as Radium from 'radium';
 import LandingPage from './LandingPage';
+import { Route } from 'react-router-dom';
 
 import zendeskAPI from '../api/zendesk';
+import url from '../common/urlParser';
 
 const logo = require('../images/sb_logo_light.png');
 
 interface state {
-    enter: boolean
+    loggedIn: boolean
 }
 
 class App extends React.Component<any, state> {
     constructor(props: any){
         super(props);
         this.state = {
-            enter: false,
+            loggedIn: false,
+        }
+    }
+
+    componentDidMount(){
+        const queryParams = url.getQueryParams();
+        const zendeskCode = queryParams.find(x => x.key === 'code');
+        if(zendeskCode){
+            zendeskAPI.requestAccessCode(zendeskCode.value);
+            return
         }
     }
 
     onEnter = () => {
-        console.log("click")
-        zendeskAPI.authUser();
-        this.setState(x => ({enter: !x.enter}));
-    }
-    
-    getPage = () => {
-        if(this.state.enter){
-            return <div>Redirecting...</div>
-        }
-        return <LandingPage onEnter={this.onEnter}/>;
+        zendeskAPI.redirectToAuth().then(() => this.setState(x => ({loggedIn: !x.loggedIn})));
     }
 
     render() {
+       
+
         return (
-            this.getPage()
+            <LandingPage onEnter={this.onEnter}/>
         )
     }
 
