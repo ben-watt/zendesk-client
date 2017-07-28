@@ -1,3 +1,5 @@
+import { dictionary } from './types';
+
 declare global {
     interface String {
         log(this: string):string
@@ -5,8 +7,6 @@ declare global {
 }
 
 const urlParser = (function() {
-
-    interface dictionary { key: string , value: string}
 
     String.prototype.log = function() {
         console.log(this);

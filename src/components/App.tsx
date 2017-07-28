@@ -10,7 +10,7 @@ import LandingPage from './LandingPage';
 const logo = require('../images/sb_logo_light.png');
 
 interface state {
-    loggedIn: boolean
+    loggedIn: boolean,
 }
 
 class App extends React.Component<any, state> {
@@ -26,7 +26,7 @@ class App extends React.Component<any, state> {
         const zendeskToken = queryParams.find(x => x.key === 'access_token');
         if(zendeskToken){
             this.setState(x => ({loggedIn: !x.loggedIn}));
-            return
+            zendeskAPI.setAccessToken(zendeskToken.value)
         }
     }
 
@@ -39,7 +39,6 @@ class App extends React.Component<any, state> {
         if(this.state.loggedIn === true){
             output = <HomePage />;
         }
-        console.log(output)
         return output
     }
 
