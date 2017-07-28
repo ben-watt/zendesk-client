@@ -1,11 +1,10 @@
 
 body {
-    background-image: url('./images/city-at-night.jpg');
-    background-size: cover;
-    color: white;
     font-family: Segoe UI Light,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif; 
 }
 
 body, html {
-    min-height: 100%;
+    margin: 0 0 -21px 0;
+    padding: 0;
+    overflow:hidden;
 }

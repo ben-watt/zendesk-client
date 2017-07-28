@@ -1,10 +1,11 @@
 import * as React from "react";
 import * as Radium from 'radium';
-import LandingPage from './LandingPage';
 import { Route } from 'react-router-dom';
 
 import zendeskAPI from '../api/zendesk';
 import url from '../common/urlParser';
+import HomePage from './HomePage';
+import LandingPage from './LandingPage';
 
 const logo = require('../images/sb_logo_light.png');
 
@@ -21,27 +22,28 @@ class App extends React.Component<any, state> {
     }
 
     componentDidMount(){
-        const queryParams = url.getQueryParams();
-        const zendeskCode = queryParams.find(x => x.key === 'code');
-        if(zendeskCode){
-            zendeskAPI.requestAccessCode(zendeskCode.value);
+        const queryParams = url.getQuery();
+        const zendeskToken = queryParams.find(x => x.key === 'access_token');
+        if(zendeskToken){
+            this.setState(x => ({loggedIn: !x.loggedIn}));
             return
         }
     }
 
-    onEnter = () => {
-        zendeskAPI.redirectToAuth().then(() => this.setState(x => ({loggedIn: !x.loggedIn})));
+    onEnter = async () => {
+        await zendeskAPI.redirectToAuth();
     }
 
     render() {
-       
-
-        return (
-            <LandingPage onEnter={this.onEnter}/>
-        )
+        let output = <LandingPage onEnter={this.onEnter}/>
+        if(this.state.loggedIn === true){
+            output = <HomePage />;
+        }
+        console.log(output)
+        return output
     }
 
 };
-//'style!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+
  export default App;
  

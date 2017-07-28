@@ -16,8 +16,7 @@ var zendeskApi = (function zendeskAPI() {
     let _access_token = '';
     let _token_type = '';
     let _scope = '';
-    // let headers = new Headers()
-    // headers.append('Access-Control-Allow-Origin', 'zendesk.com' );
+
 
 
     function redirectToAuth(){
@@ -25,14 +24,12 @@ var zendeskApi = (function zendeskAPI() {
     }
 
     function assignAccessToken(response :any){
-        console.log(response);
         _access_token = response.data["access_token"];
         _scope = response.data["scope"];
         _token_type = response.data["token_type"];
     }
     
     function requestAccessCode(code :string){
-
         const payload = {
             grant_type: 'authorization_code',
             code: code,

@@ -1,23 +1,39 @@
 import * as React from "react";
-import * as Radium from 'radium';
-import css from './LandingPage-styles';
+const css = require('./LandingPage-styles.css');
 const logo = require('../images/sb_logo_light.png');
 
 interface props {
     onEnter: {(): void;}
 }
+interface state {
+    btnStyle: any[]
+}
 
-const LandingPage = (props: props) => {
-    return (
-            <div style={css.grid}>
-                <div style={css.text}>
-                    <img src={logo} alt="sharedo-logo" style={css.logo}/>
-                    <h1 style={css.title}>Customer Support Portal</h1>
+class LandingPage extends React.Component<props, state> {
+    constructor(props: props){
+        super(props)
+        this.state = {
+            btnStyle: [css.enterBtn],
+        }
+    }
+
+    onClick = () => {
+        this.setState(prevState => ({ btnStyle: [css.whiteOut]})); 
+        this.props.onEnter();
+    }
+
+    render() {
+        return (       
+                <div className={css.grid}>
+                    <div className={css.text}>
+                        <img src={logo} alt="sharedo-logo" className={css.logo}/>
+                        <h1 className={css.title}>Customer Support Portal</h1>
+                    </div>
+                    <button onClick={this.onClick} className={this.state.btnStyle.join(' ')}>Enter</button>
                 </div>
-                <button onClick={props.onEnter} style={css.enterBtn}>Enter</button>
-            </div>
-    )
+        )
+    }
 };
 
- export default Radium(LandingPage);
+ export default LandingPage;
  
