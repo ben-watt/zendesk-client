@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import { dictionary } from '../common/types';
+import url from '../common/urlParser';
 
 var zendeskApi = (function zendeskAPI() {
 
@@ -16,21 +18,52 @@ var zendeskApi = (function zendeskAPI() {
     const _redirectToAuthUrl = _zendesk_sub_domain + _oauth_endpoint 
             + _client_id + _response_type + _requested_scope;
     const _requestAccessCodeUrl = _zendesk_sub_domain + _oauth_tokens;
-    let _access_token = '';
 
     function setAccessToken(access_token: string){
-        _access_token = access_token;
+        sessionStorage['access_token'] = access_token;
     }
 
-    function redirectToAuth(){
+    function getHeader() {
+        const access_token = sessionStorage['access_token'];
+        return { headers: { Authorization: 'Bearer ' + access_token}};
+    }
+
+    function redirectToAuth(): Promise<{}> {
         return new Promise(() => window.location.assign(_redirectToAuthUrl));
     }
 
+    function validateUser(): boolean {
+        
+        const accessToken = sessionStorage['access_token'];
+        if(accessToken !== undefined) {
+            setAccessToken(accessToken);
+            return true;
+        }
+
+        const queryParams = url.getQuery();
+        const zendeskToken = queryParams.find(x => x.key === 'access_token');
+        if(zendeskToken){   
+            setAccessToken(zendeskToken.value);
+            return true;
+        }
+
+        return false;
+    }
+
+    async function getOrg(){
+        let response: any;
+        try{
+            response = await axios.get(_apiEndpoint + '/organizations.json', getHeader())
+        } catch(e){
+            console.log(e);
+        }
+        return response;
+    }
 
     async function getTickets(){
         let response: any;
         try {
-           response = await axios.get(_apiEndpoint + '/requests.json', { headers: { Authorization: 'Bearer ' + _access_token}});
+           response = await axios.get(_apiEndpoint + '/requests.json', getHeader());
         } catch(e){
             console.log(e);
         }
@@ -39,8 +72,10 @@ var zendeskApi = (function zendeskAPI() {
 
     return {
         redirectToAuth: redirectToAuth,
-        getTickets: getTickets,
         setAccessToken: setAccessToken,
+        validateUser: validateUser,
+        getTickets: getTickets,
+        getOrg: getOrg,
     }
 
 })();

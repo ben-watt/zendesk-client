@@ -1,0 +1,17 @@
+@import '../config-styles.css';
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--green);
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    margin: 5px;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-hover);
+}

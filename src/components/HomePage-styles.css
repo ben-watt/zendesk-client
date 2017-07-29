@@ -1,0 +1,68 @@
+@import '../config-styles.css';
+
+.container {
+    min-height:100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 100px auto;
+    background-color: var(--background-color);
+}
+
+.mainArea {
+    grid-column: 2 / 5;
+}
+
+.header {
+    display: flex;
+    grid-template-rows: 1fr;
+    grid-column: 1 / 6;
+    align-items: center;
+    justify-content: center;   
+    padding: 0px 20px 0px 20px;
+    height: 60px;
+    background-color:var(--green);   
+}
+
+.header nav, section {
+    display: inline;
+}
+
+nav {
+    position: fixed;
+    left: 50px;
+    top: 15px;
+    font-size: 1.2em;
+    font-weight: thin;
+}
+
+.actions {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search input {  
+    display: inline-block; 
+    border: none;
+    padding: 12px;
+    width: 80%;
+    font-size: 1.2em;
+    background-color: transparent;
+}
+
+.search input:focus {
+    outline: none;
+}
+
+.searchIcon {
+    display: inline-block;
+    width: 5%;
+    color: var(--grey);
+    text-align: center;
+}
+
+.search{
+    width: 60%;
+    background-color: hsla(50, 100%, 100%, 0.5);
+    border-radius: 5px;    
+}

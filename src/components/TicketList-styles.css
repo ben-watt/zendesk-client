@@ -1,0 +1,52 @@
+@import '../config-styles.css';
+
+.table {
+    padding: 5px;
+}
+
+.tableHeader {
+    display: block;
+    padding-bottom: 10px;
+}
+
+.table div div {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
+
+.table div div:nth-child(1) {
+    min-width: 10%;
+}
+
+.table div div:nth-child(2) {
+    min-width: 40%;
+}
+
+.tableRow  div:nth-child(1) {
+    justify-content: center;
+}
+
+.tableHeader > div:nth-child(1) {
+    justify-content: flex-start;
+}
+
+.tableRow {
+    background-color: white;
+    height: 40px;
+    box-shadow: var(--shadow); 
+    user-select: none;
+}
+
+.tableRow:hover {
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    position: relative;
+    box-shadow: var(--shadow-hover);
+    z-index: 1; 
+}
+
+.tableRow:active {
+    cursor: -webkit-grabbing; 
+    cursor: -moz-grabbing;
+}
